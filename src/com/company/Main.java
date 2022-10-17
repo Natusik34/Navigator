@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException{
 
-        Navigator navigator = new Navigator(500);
+        Navigator navigator = new Navigator(15);
 
         new Thread(navigator).start();
        // while(navigator.getDistance() > 0)
