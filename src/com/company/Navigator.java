@@ -34,18 +34,18 @@ public class Navigator implements Runnable{
         while (distance > 0){
 
             speed = new Random().nextInt(maxSpeed - minSpeed) + minSpeed; // задается рандомная скорость
-            //speed = 80;
+            //speed = speed;
             timeDist = distance/speed; //время пути
             averageSpeed = distance/ timeDist; //средняя скорость
             distanceTraveled = distanceTraveled + speed;// пройденная дистанция
-            ostDist = distance - distanceTraveled;//оставшаяся дистанция
-            time = ((ostDist/averageSpeed)/60)/60;//оставшееся время(по факту, сначала переводим секунды в минуты, а потом минуты в часы)
+            ostDist = distance - distanceTraveled/3600;//оставшаяся дистанция
+            time = (ostDist/averageSpeed)/60;//оставшееся время(переводим секунды в минуты)
             distance = distance - distanceTraveled;
-            if(time < 0) return; //чтобы оставшееся время не уходило в минус
-            if(ostDist < 0) return; //чтобы оставшееся расстояние не уходило в минус
+            if(time <= 0) return; //чтобы оставшееся время не уходило в минус
+            if(ostDist <= 0) return; //чтобы оставшееся расстояние не уходило в минус
 
             System.out.println("Средняя скорость " + averageSpeed + " км" ); //типо норм
-            System.out.println("Оставшееся время " + time + " ч"); //параша
+            System.out.println("Оставшееся время " + time + " мин"); //типо мин
             System.out.println("Оставшееся расстояние " + ostDist + " км" ); //параша
             System.out.println(" ");
 
