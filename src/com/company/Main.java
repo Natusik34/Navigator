@@ -2,14 +2,9 @@ package com.company;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args){
 
-        Navigator navigator = new Navigator(15);
-
+        Navigator navigator = new Navigator(10);
         new Thread(navigator).start();
-       // while(navigator.getDistance() > 0)
-        //    System.out.println(navigator.getDistance());
-       // Thread.sleep(1000);
-
     }
 }

@@ -1,52 +1,33 @@
 package com.company;
 
-import java.util.Random;
-import java.util.Scanner;
-
 public class Navigator implements Runnable{
-    int speed; //скорость
-    int averageSpeed; //средняя скорость
-    double time; // время
-    int minSpeed = 10; //мин скорость
-    int maxSpeed = 100; //макс скорость
-    //Random random = new Random();
-    private int distance;
-    int distanceTraveled = 0; //пройденая дистанции
-    int ostDist; //оставшаяся дистанция
-    int timeDist; //время пути
-    //private int distance;
+    private double distance;
+    double minSpeed = 100; //мин скорость
+    double maxSpeed = 200; //макс скорость
+    double speed; //скорость
+    double averageSpeed; //средняя скорость
+    double time;//время
 
-    //int speed = new Random().nextInt(maxSpeed - minSpeed) + maxSpeed;
-    // Scanner scanner = new Scanner(System.in);
-    //  System.out.println("Введите расстояние");
-    //  int distance = scanner.nextInt();
-
-    public Navigator(int distance){
-        this.distance = distance * 1000;
+    public Navigator(double distance){
+        this.distance = distance;//расстояние в км
     }
 
-    public int getDistance(){
+    public double getDistance(){
         return distance;
     }
 
     @Override
     public void run() {
-        while (distance > 0){
+        while(distance>0){
+            speed = Math.random()*((maxSpeed-minSpeed)+1)+minSpeed; //скорость рандом
+            averageSpeed = minSpeed;//присваиваем ср скорости мин скорость
+            averageSpeed = (averageSpeed + speed)/2;//считаем ср скорость
+            distance = distance - (speed/3600); // оставшаяся дистанция
+            time = distance/(averageSpeed/60);//оставшееся время(переводим секунды в минуты)
 
-            speed = new Random().nextInt(maxSpeed - minSpeed) + minSpeed; // задается рандомная скорость
-            //speed = speed;
-            timeDist = distance/speed; //время пути
-            averageSpeed = distance/ timeDist; //средняя скорость
-            distanceTraveled = distanceTraveled + speed;// пройденная дистанция
-            ostDist = distance - distanceTraveled/3600;//оставшаяся дистанция
-            time = (ostDist/averageSpeed)/60;//оставшееся время(переводим секунды в минуты)
-            distance = distance - distanceTraveled;
-            if(time <= 0) return; //чтобы оставшееся время не уходило в минус
-            if(ostDist <= 0) return; //чтобы оставшееся расстояние не уходило в минус
-
-            System.out.println("Средняя скорость " + averageSpeed + " км" ); //типо норм
-            System.out.println("Оставшееся время " + time + " мин"); //типо мин
-            System.out.println("Оставшееся расстояние " + ostDist + " км" ); //параша
+            System.out.println("Average speed " + String.format("%.3f", averageSpeed) + " km/h" ); //вывод средней скорости
+            System.out.println("Remaining time " + String.format("%.2f", time) + " min"); //вывод сколько минут осталось
+            System.out.println("Remaining distance " + String.format("%.3f", distance) + " km/h" ); //вывод оставшейся дистанции
             System.out.println(" ");
 
             try {
@@ -55,6 +36,5 @@ public class Navigator implements Runnable{
                 e.printStackTrace();
             }
         }
-
     }
 }
